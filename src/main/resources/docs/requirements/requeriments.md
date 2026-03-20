@@ -24,326 +24,445 @@ Ingeniería de Sistemas — Desarrollo de Software (DOSW)
 
 ## 2. Requerimientos Funcionales
 
-### 2.1 RF-001 — Crear Torneo
+## RF-01 — Crear y gestionar un torneo
 
 | Campo | Descripción |
 |-------|-------------|
-| **ID** | RF-001 |
-| **Nombre** | Crear Torneo |
-| **Descripción** | *El sistema debe permitir al organizador crear un nuevo torneo ingresando la información básica del mismo.* |
-| **Precondiciones** | *El usuario debe estar autenticado y tener rol de Organizador asignado.* |
-| **Actor** | *Organizador* |
-| **Flujo principal** | 1. El organizador accede al apartado de gestión de torneos.<br>2. El sistema muestra la opción "Crear torneo".<br>3. El organizador selecciona "Crear torneo".<br>4. El sistema despliega el formulario con los campos requeridos.<br>5. El organizador diligencia los datos del torneo y confirma.<br>6. El sistema valida que todos los campos obligatorios estén completos y cumplan las reglas.<br>7. El sistema crea el torneo en estado "Borrador" y muestra mensaje de confirmación. |
+| **ID** | RF-01 |
+| **Nombre del requerimiento** | Crear y gestionar un torneo |
+| **Descripción** | El sistema debe permitir al organizador crear un torneo con su información básica (fecha inicial, fecha final, cantidad de equipos, costo por equipo y estado), así como iniciarlo y finalizarlo. |
+| **Precondiciones** | El organizador debe estar autenticado en el sistema con rol de Organizador. |
+| **Actor** | Organizador |
+| **Flujo principal** | 1. El organizador accede a la sección de gestión de torneos.<br>2. El organizador diligencia los campos: fecha inicial, fecha final, cantidad de equipos, costo por equipo.<br>3. El sistema valida que los campos obligatorios estén completos y que las fechas sean coherentes.<br>4. El sistema crea el torneo con estado *Borrador*.<br>5. El organizador puede cambiar el estado a *Activo*, *En progreso* o *Finalizado* según el avance del torneo. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que el torneo quede registrado en el sistema con un estado definido y sea visible para los demás actores. |
 
 ---
 
-### 2.2 RF-002 — Iniciar Torneo
+## RF-02 — Inscribir equipo a un torneo
 
 | Campo | Descripción |
 |-------|-------------|
-| **ID** | RF-002 |
-| **Nombre** | Iniciar Torneo |
-| **Descripción** | *El sistema debe permitir al organizador cambiar el estado de un torneo de "Activo" a "En progreso", dando inicio oficial al torneo.* |
-| **Precondiciones** | *1) El usuario debe estar autenticado con rol de Organizador.<br>2) El torneo debe estar en estado Activo.<br>3) Debe haber al menos 2 equipos inscritos con estado Aprobado.* |
-| **Actor** | *Organizador* |
-| **Flujo principal** | 1. El organizador accede al torneo.<br>2. El organizador selecciona "Iniciar torneo".<br>3. El organizador confirma la acción.<br>4. El sistema cambia el estado del torneo a "En progreso". |
+| **ID** | RF-02 |
+| **Nombre del requerimiento** | Inscribir equipo a un torneo |
+| **Descripción** | El sistema debe permitir al capitán inscribir su equipo a un torneo activo, siempre que el equipo cumpla con los requisitos mínimos de conformación y el pago haya sido aprobado. |
+| **Precondiciones** | El capitán debe estar autenticado. El equipo debe tener mínimo 7 jugadores y más de la mitad deben pertenecer a los programas de Ingeniería de Sistemas, IA, Ciberseguridad o Estadística. El torneo debe estar en estado *Activo*. |
+| **Actor** | Capitán |
+| **Flujo principal** | 1. El capitán accede a la sección de torneos disponibles.<br>2. El capitán selecciona el torneo al que desea inscribir su equipo.<br>3. El sistema valida que el equipo cumple los requisitos de conformación.<br>4. El sistema registra la solicitud de inscripción con estado *Pendiente*.<br>5. El capitán sube el comprobante de pago.<br>6. El organizador revisa y aprueba o rechaza la inscripción. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que el equipo quede inscrito con estado *Aprobado* y habilitado para participar en el torneo. |
 
 ---
 
-### 2.3 RF-003 — Finalizar Torneo
+## RF-03 — Consultar información del torneo y sus partidos
 
 | Campo | Descripción |
 |-------|-------------|
-| **ID** | RF-003 |
-| **Nombre** | Finalizar Torneo |
-| **Descripción** | *El sistema debe permitir al organizador cambiar el estado de un torneo de "En progreso" a "Finalizado", cuando termine el torneo.* |
-| **Precondiciones** | *1) El usuario debe estar autenticado con rol de Organizador.<br>2) El torneo debe estar en estado "En progreso".* |
-| **Actor** | *Organizador* |
-| **Flujo principal** | 1. El organizador accede al torneo en progreso.<br>2. El organizador selecciona "Finalizar torneo".<br>3. El organizador confirma la acción.<br>4. El sistema cambia el estado del torneo a "Finalizado". |
+| **ID** | RF-03 |
+| **Nombre del requerimiento** | Consultar información del torneo y sus partidos |
+| **Descripción** | El sistema debe permitir a cualquier usuario autenticado consultar la información general del torneo, incluyendo fechas, reglamento, calendario de partidos y resultados. |
+| **Precondiciones** | El usuario debe estar autenticado en el sistema. El torneo debe existir y estar en estado *Activo*, *En progreso* o *Finalizado*. |
+| **Actor** | Estudiante, Capitán, Árbitro, Organizador, Administrador |
+| **Flujo principal** | 1. El usuario accede a la sección del torneo.<br>2. El sistema muestra la información general: fechas, reglamento, estado del torneo.<br>3. El usuario selecciona la opción de ver partidos.<br>4. El sistema muestra el calendario de partidos con fechas, horarios, canchas y resultados registrados. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que el usuario visualice correctamente la información del torneo y sus partidos. |
 
 ---
 
-### 2.4 RF-004 — Consultar Torneo
+## RF-04 — Registrar pago mediante comprobante
 
 | Campo | Descripción |
 |-------|-------------|
-| **ID** | RF-004 |
-| **Nombre** | Consultar Torneo |
-| **Descripción** | *El sistema debe permitir a cualquier usuario autenticado consultar la información de un torneo existente.* |
-| **Precondiciones** | *El usuario debe estar autenticado en el sistema.* |
-| **Actor** | *Todos los actores* |
-| **Flujo principal** | 1. El usuario accede al módulo de torneos.<br>2. El sistema muestra la lista de torneos disponibles.<br>3. El usuario selecciona un torneo para ver su detalle.<br>4. El sistema muestra la información completa del torneo. |
+| **ID** | RF-04 |
+| **Nombre del requerimiento** | Registrar pago mediante comprobante |
+| **Descripción** | El sistema debe permitir al capitán subir un comprobante de pago (imagen o PDF) para iniciar el proceso de verificación de inscripción del equipo. |
+| **Precondiciones** | El capitán debe estar autenticado. El equipo debe estar creado y cumplir los requisitos de conformación. El torneo debe estar en estado *Activo* y con inscripciones abiertas. |
+| **Actor** | Capitán |
+| **Flujo principal** | 1. El capitán accede a la sección de inscripción de su equipo.<br>2. El capitán selecciona el archivo del comprobante de pago (NEQUI o efectivo).<br>3. El sistema valida el formato y tamaño del archivo.<br>4. El sistema almacena el comprobante de forma segura y registra el estado del pago como *Pendiente*.<br>5. El sistema notifica al organizador sobre el nuevo comprobante. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que el comprobante quede registrado en el sistema con estado *Pendiente* y el organizador sea notificado. |
 
 ---
 
-### 2.5 RF-005 — Registrarse como Jugador
+## RF-06 — Definir partidos de fase de grupos
 
 | Campo | Descripción |
 |-------|-------------|
-| **ID** | RF-005 |
-| **Nombre** | Registrarse como Jugador |
-| **Descripción** | *El sistema debe permitir a estudiantes, graduados, profesores, personal administrativo y familiares registrarse en la plataforma como jugadores.* |
-| **Precondiciones** | *El usuario no debe tener una cuenta antes en el sistema.* |
-| **Actor** | *Estudiante, Graduado, Profesor, Personal Administrativo, Familiar* |
-| **Flujo principal** | 1. El usuario accede a la página de registro.<br>2. El usuario selecciona su tipo de vinculación.<br>3. El usuario ingresa sus datos personales.<br>4. El usuario confirma el registro.<br>5. El sistema crea la cuenta y notifica al usuario. |
+| **ID** | RF-06 |
+| **Nombre del requerimiento** | Definir partidos de fase de grupos |
+| **Descripción** | El sistema debe generar automáticamente los partidos iniciales de la fase de grupos de forma aleatoria, una vez que el torneo sea iniciado por el organizador. |
+| **Precondiciones** | El torneo debe estar en estado *Activo*. Todos los equipos participantes deben tener el pago aprobado. Debe existir al menos el número mínimo de equipos definido en el torneo. |
+| **Actor** | Organizador |
+| **Flujo principal** | 1. El organizador inicia el torneo desde la sección de gestión.<br>2. El sistema cambia el estado del torneo a *En progreso*.<br>3. El sistema toma los equipos inscritos con pago aprobado.<br>4. El sistema genera aleatoriamente los enfrentamientos de fase de grupos.<br>5. El sistema publica el calendario de partidos visible para todos los actores. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que los partidos de fase de grupos queden generados y visibles en el calendario del torneo. |
 
 ---
 
-### 2.6 RF-006 — Crear Perfil Jugador
+## RF-10 — Consultar información de partidos (Árbitro)
 
 | Campo | Descripción |
 |-------|-------------|
-| **ID** | RF-006 |
-| **Nombre** | Crear Perfil Jugador |
-| **Descripción** | *El sistema debe permitir a un jugador registrado completar su perfil deportivo indicando sus posiciones de juego, número dorsal y foto.* |
-| **Precondiciones** | *El usuario debe estar autenticado y registrado en el sistema (RF-005 completado).* |
-| **Actor** | *Estudiante, Graduado, Profesor, Personal Administrativo, Familiar* |
-| **Flujo principal** | 1. El jugador accede a su perfil.<br>2. El jugador selecciona "Completar perfil deportivo".<br>3. El jugador ingresa la información deportiva (posiciones de juego, número dorsal y foto).<br>4. El jugador confirma los datos ingresados.<br>5. El sistema guarda y muestra el perfil actualizado. |
+| **ID** | RF-10 |
+| **Nombre del requerimiento** | Consultar información de partidos asignados |
+| **Descripción** | El sistema debe permitir al árbitro consultar la información de los partidos que tiene asignados para arbitrar, incluyendo fecha, hora, cancha y equipos participantes. |
+| **Precondiciones** | El árbitro debe estar autenticado con rol de Árbitro. Deben existir partidos asignados al árbitro en el sistema. |
+| **Actor** | Árbitro |
+| **Flujo principal** | 1. El árbitro accede a la sección de mis partidos.<br>2. El sistema muestra el listado de partidos asignados al árbitro.<br>3. El árbitro selecciona un partido.<br>4. El sistema muestra: fecha, hora, cancha, equipo local y equipo visitante. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que el árbitro visualice correctamente la información del partido asignado. |
 
 ---
 
-### 2.7 RF-007 — Activar Disponibilidad
+## RF-11 — Restringir cambio de integrantes en torneo activo
 
 | Campo | Descripción |
 |-------|-------------|
-| **ID** | RF-007 |
-| **Nombre** | Activar Disponibilidad |
-| **Descripción** | *El sistema debe permitir a un jugador indicar que está disponible para unirse a un equipo, permitiendo que los capitanes lo encuentren y contacten.* |
-| **Precondiciones** | *1) El usuario debe estar autenticado.<br>2) Debe tener su perfil deportivo completo (RF-006).<br>3) No debe pertenecer a un equipo en el torneo activo.* |
-| **Actor** | *Estudiante, Graduado, Profesor, Personal Administrativo, Familiar* |
-| **Flujo principal** | 1. El jugador accede a su perfil.<br>2. El jugador activa la opción de disponibilidad.<br>3. El sistema actualiza el estado del jugador como "Disponible". |
+| **ID** | RF-11 |
+| **Nombre del requerimiento** | Restringir cambio de integrantes en torneo activo |
+| **Descripción** | El sistema debe impedir que se realicen cambios en la nómina de jugadores de un equipo una vez que el torneo haya iniciado. Los 12 jugadores registrados al inicio deben permanecer hasta el final. |
+| **Precondiciones** | El torneo debe estar en estado *En progreso*. El equipo debe estar inscrito y aprobado. |
+| **Actor** | Capitán |
+| **Flujo principal** | 1. El capitán intenta modificar la nómina de su equipo durante el torneo.<br>2. El sistema detecta que el torneo está en estado *En progreso*.<br>3. El sistema bloquea la acción e informa al capitán que no es posible realizar cambios durante el torneo activo. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que la nómina del equipo permanezca sin cambios y el capitán reciba un mensaje informativo sobre la restricción. |
 
 ---
 
-### 2.8 RF-008 — Gestionar Invitaciones de Equipos
+## RF-12 — Organizar alineación antes de un partido
 
 | Campo | Descripción |
 |-------|-------------|
-| **ID** | RF-008 |
-| **Nombre** | Gestionar Invitaciones de Equipos |
-| **Descripción** | *El sistema debe permitir a un jugador visualizar las invitaciones recibidas para unirse a un equipo y aceptarlas o rechazarlas.* |
-| **Precondiciones** | *1) El usuario debe estar autenticado.<br>2) Debe tener al menos una invitación pendiente.* |
-| **Actor** | *Estudiante, Graduado, Profesor, Personal Administrativo, Familiar* |
-| **Flujo principal** | 1. El jugador accede a su bandeja de invitaciones.<br>2. El sistema muestra las invitaciones pendientes.<br>3. El jugador selecciona aceptar o rechazar cada invitación.<br>4. El sistema actualiza el estado de la invitación y notifica al capitán. |
+| **ID** | RF-12 |
+| **Nombre del requerimiento** | Organizar alineación antes de un partido |
+| **Descripción** | El sistema debe permitir al capitán definir la alineación de su equipo antes de cada partido, seleccionando titulares, reservas, formación y posición visual de cada jugador en la cancha. |
+| **Precondiciones** | El capitán debe estar autenticado. El equipo debe estar inscrito y aprobado. Debe existir un partido programado para el equipo. |
+| **Actor** | Capitán |
+| **Flujo principal** | 1. El capitán accede a la sección de alineaciones de su equipo.<br>2. El capitán selecciona el partido para el cual desea definir la alineación.<br>3. El capitán elige la formación táctica (ej. 2-3-1).<br>4. El capitán asigna los jugadores titulares a cada posición en el campo visual.<br>5. El capitán define los jugadores reservas.<br>6. El sistema guarda la alineación y la hace visible para los demás actores. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que la alineación quede registrada y sea consultable por jugadores y el equipo rival. |
 
 ---
 
-### 2.9 RF-009 — Crear Equipo
+## RF-13 — Validar participación por pago aprobado
 
 | Campo | Descripción |
 |-------|-------------|
-| **ID** | RF-009 |
-| **Nombre** | Crear Equipo |
-| **Descripción** | *El sistema debe permitir a un jugador registrado crear un equipo para participar en un torneo activo, convirtiéndose en capitán del mismo.* |
-| **Precondiciones** | *1) El usuario debe estar autenticado y tener perfil deportivo completo.<br>2) Debe existir al menos un torneo en estado "Activo".<br>3) El jugador no debe pertenecer a otro equipo en el mismo torneo.<br>4) El torneo no debe haber alcanzado la cantidad máxima de equipos.* |
-| **Actor** | *Estudiante, Graduado, Profesor, Personal Administrativo, Familiar (asume rol de Capitán)* |
-| **Flujo principal** | 1. El jugador accede al torneo activo.<br>2. El jugador selecciona "Crear equipo".<br>3. El jugador diligencia los datos del equipo.<br>4. El jugador confirma la creación.<br>5. El sistema registra al jugador como capitán del equipo. |
+| **ID** | RF-13 |
+| **Nombre del requerimiento** | Validar participación por pago aprobado |
+| **Descripción** | El sistema debe garantizar que solo los equipos cuyo pago haya sido aprobado por el organizador puedan participar en los partidos del torneo. |
+| **Precondiciones** | El torneo debe estar en estado *En progreso*. El organizador debe haber revisado los comprobantes de pago de los equipos. |
+| **Actor** | Organizador, Sistema |
+| **Flujo principal** | 1. El organizador inicia el torneo.<br>2. El sistema verifica qué equipos tienen estado de pago *Aprobado*.<br>3. El sistema incluye únicamente esos equipos en la generación de partidos.<br>4. Los equipos con estado *Pendiente*, *En revisión* o *Rechazado* son excluidos automáticamente. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que solo los equipos con pago aprobado aparezcan en el calendario de partidos del torneo. |
 
 ---
 
-### 2.10 RF-010 — Invitar Jugadores al Equipo
+## RF-14 — Subir comprobante de pago
 
 | Campo | Descripción |
 |-------|-------------|
-| **ID** | RF-010 |
-| **Nombre** | Invitar Jugadores al Equipo |
-| **Descripción** | *El sistema debe permitir al capitán de un equipo enviar invitaciones a jugadores disponibles para que se unan a su equipo.* |
-| **Precondiciones** | *1) El usuario debe estar autenticado con rol de Capitán.<br>2) El equipo no debe haber alcanzado el máximo de 12 jugadores.<br>3) El torneo debe estar en estado "Activo".* |
-| **Actor** | *Capitán* |
-| **Flujo principal** | 1. El capitán accede a la gestión de su equipo.<br>2. El capitán busca jugadores disponibles.<br>3. El capitán selecciona un jugador y le envía una invitación.<br>4. El sistema registra y notifica la invitación al jugador. |
+| **ID** | RF-14 |
+| **Nombre del requerimiento** | Subir comprobante de pago |
+| **Descripción** | El sistema debe permitir al capitán cargar el archivo del comprobante de pago (transferencia NEQUI o recibo de efectivo) para que el organizador pueda verificarlo. |
+| **Precondiciones** | El capitán debe estar autenticado. El equipo debe estar creado. El torneo debe tener inscripciones abiertas. |
+| **Actor** | Capitán |
+| **Flujo principal** | 1. El capitán accede al formulario de inscripción de su equipo.<br>2. El capitán selecciona el archivo del comprobante desde su dispositivo.<br>3. El sistema valida el formato del archivo (imagen o PDF).<br>4. El sistema almacena el archivo de forma segura.<br>5. El sistema registra el estado del pago como *Pendiente* y notifica al organizador. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que el comprobante quede almacenado y el estado de pago del equipo sea *Pendiente*. |
 
 ---
 
-### 2.11 RF-011 — Buscar Jugadores
+## RF-15 — Notificar al organizador sobre nuevos comprobantes
 
 | Campo | Descripción |
 |-------|-------------|
-| **ID** | RF-011 |
-| **Nombre** | Buscar Jugadores |
-| **Descripción** | *El sistema debe permitir a los capitanes buscar jugadores disponibles aplicando filtros por diferentes criterios para facilitar la conformación de su equipo.* |
-| **Precondiciones** | *1) El usuario debe estar autenticado con rol de Capitán.<br>2) Debe existir un torneo en estado "Activo".* |
-| **Actor** | *Capitán* |
-| **Flujo principal** | 1. El capitán accede al módulo de búsqueda de jugadores.<br>2. El capitán aplica los filtros deseados por los criterios disponibles.<br>3. El sistema muestra los resultados que coinciden con los filtros aplicados. |
+| **ID** | RF-15 |
+| **Nombre del requerimiento** | Notificar al organizador sobre nuevos comprobantes |
+| **Descripción** | El sistema debe notificar al organizador cuando un capitán suba un nuevo comprobante de pago, para que pueda revisarlo oportunamente. |
+| **Precondiciones** | El capitán debe haber subido un comprobante exitosamente. El organizador debe estar registrado en el sistema con rol de Organizador. |
+| **Actor** | Sistema, Organizador |
+| **Flujo principal** | 1. El capitán sube el comprobante de pago.<br>2. El sistema registra el comprobante con estado *Pendiente*.<br>3. El sistema genera una notificación dirigida al organizador.<br>4. El organizador recibe la notificación e ingresa a revisar el comprobante.<br>5. El organizador cambia el estado a *En revisión*, luego a *Aprobado* o *Rechazado*. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que el organizador sea notificado y pueda acceder al comprobante para su revisión. |
 
 ---
 
-### 2.12 RF-012 — Subir Comprobante de Pago
+## RF-16 — Consultar alineaciones de equipos
 
 | Campo | Descripción |
 |-------|-------------|
-| **ID** | RF-012 |
-| **Nombre** | Subir Comprobante de Pago |
-| **Descripción** | *El sistema debe permitir al capitán de un equipo subir el comprobante de pago de la inscripción al torneo para su posterior verificación por el organizador.* |
-| **Precondiciones** | *1) El usuario debe estar autenticado con rol de Capitán.<br>2) El equipo debe tener mínimo 7 jugadores.<br>3) Más de la mitad de los miembros deben pertenecer a los programas elegibles.<br>4) El torneo debe estar en estado "Activo".<br>5) El equipo no debe tener un pago ya aprobado.* |
-| **Actor** | *Capitán* |
-| **Flujo principal** | 1. El capitán accede a la gestión de su equipo.<br>2. El capitán selecciona "Subir comprobante de pago".<br>3. El capitán adjunta el archivo del comprobante.<br>4. El capitán confirma la carga del archivo.<br>5. El sistema registra el comprobante en estado "Pendiente" y notifica al organizador. |
+| **ID** | RF-16 |
+| **Nombre del requerimiento** | Consultar alineaciones de equipos |
+| **Descripción** | El sistema debe permitir a capitanes y jugadores consultar la alineación de cualquier equipo, incluyendo la del equipo rival antes de un partido. |
+| **Precondiciones** | El usuario debe estar autenticado. La alineación del equipo debe haber sido definida por el capitán correspondiente. |
+| **Actor** | Capitán, Estudiante |
+| **Flujo principal** | 1. El usuario accede a la sección de alineaciones.<br>2. El usuario selecciona el partido o el equipo que desea consultar.<br>3. El sistema muestra la formación táctica con los jugadores titulares posicionados visualmente en la cancha.<br>4. El sistema muestra también el listado de reservas. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que el usuario visualice la alineación completa del equipo consultado. |
 
 ---
 
-### 2.13 RF-013 — Verificar Pago
+## RF-17 — Buscar jugadores para el equipo
 
 | Campo | Descripción |
 |-------|-------------|
-| **ID** | RF-013 |
-| **Nombre** | Verificar Pago |
-| **Descripción** | *El sistema debe permitir al organizador revisar los comprobantes de pago subidos por los capitanes y aprobar o rechazar la inscripción del equipo.* |
-| **Precondiciones** | *1) El usuario debe estar autenticado con rol de Organizador.<br>2) Debe existir al menos un comprobante en estado "Pendiente".* |
-| **Actor** | *Organizador* |
-| **Flujo principal** | 1. El organizador accede al módulo de pagos.<br>2. El sistema muestra los comprobantes pendientes de revisión.<br>3. El organizador revisa cada comprobante.<br>4. El organizador aprueba o rechaza la inscripción del equipo.<br>5. El sistema actualiza el estado del equipo según la decisión tomada. |
+| **ID** | RF-17 |
+| **Nombre del requerimiento** | Buscar jugadores para el equipo |
+| **Descripción** | El sistema debe permitir al capitán buscar jugadores disponibles aplicando filtros por posición, semestre, edad, género, nombre e identificación. |
+| **Precondiciones** | El capitán debe estar autenticado. Deben existir jugadores registrados que se hayan marcado como disponibles. |
+| **Actor** | Capitán |
+| **Flujo principal** | 1. El capitán accede a la sección de búsqueda de jugadores.<br>2. El capitán aplica uno o varios filtros: posición, semestre, edad, género, nombre o identificación.<br>3. El sistema muestra el listado de jugadores disponibles que coincidan con los filtros.<br>4. El capitán selecciona un jugador y le envía una invitación para unirse al equipo. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que el capitán visualice jugadores disponibles y pueda enviarles una invitación. |
 
 ---
 
-### 2.14 RF-014 — Configurar Torneo
+## RF-18 — Registrarse como jugador
 
 | Campo | Descripción |
 |-------|-------------|
-| **ID** | RF-014 |
-| **Nombre** | Configurar Torneo |
-| **Descripción** | *El sistema debe permitir al organizador definir la configuración detallada del torneo incluyendo reglamento, fechas importantes, horarios, canchas y sanciones.* |
-| **Precondiciones** | *1) El usuario debe estar autenticado con rol de Organizador.<br>2) El torneo debe existir y estar en estado "Borrador" o "Activo".* |
-| **Actor** | *Organizador* |
-| **Flujo principal** | 1. El organizador accede al torneo creado.<br>2. El organizador selecciona "Configurar torneo".<br>3. El organizador diligencia las diferentes secciones de configuración (reglamento, fechas importantes, horarios, canchas y sanciones).<br>4. El sistema guarda la configuración ingresada. |
+| **ID** | RF-18 |
+| **Nombre del requerimiento** | Registrarse como jugador |
+| **Descripción** | El sistema debe permitir a estudiantes, graduados, profesores, personal administrativo y familiares registrarse como jugadores, creando un perfil deportivo con posición, número dorsal y foto. |
+| **Precondiciones** | El usuario debe contar con un correo institucional (@escuelaing.edu.co) o correo personal de Gmail (para familiares). El usuario no debe tener un perfil de jugador previamente creado. |
+| **Actor** | Estudiante, Graduado, Profesor, Personal Administrativo, Familiar |
+| **Flujo principal** | 1. El usuario accede al formulario de registro.<br>2. El usuario ingresa sus datos personales y su correo según su tipo (institucional o Gmail).<br>3. El sistema verifica el dominio del correo.<br>4. El usuario completa su perfil deportivo: posición de juego, número dorsal y foto.<br>5. El usuario indica si está disponible para ser contactado por capitanes.<br>6. El sistema crea el perfil y lo registra en el sistema. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que el usuario quede registrado como jugador con perfil deportivo completo y visible para los capitanes si está disponible. |
 
 ---
 
-### 2.15 RF-015 — Registrar Resultado de Partido
+## RF-19 — Registrarse como capitán
 
 | Campo | Descripción |
 |-------|-------------|
-| **ID** | RF-015 |
-| **Nombre** | Registrar Resultado de Partido |
-| **Descripción** | *El sistema debe permitir al organizador registrar los resultados de un partido incluyendo marcador, goleadores, tarjetas amarillas y tarjetas rojas.* |
-| **Precondiciones** | *1) El usuario debe estar autenticado con rol de Organizador.<br>2) Debe existir un partido programado que ya se haya disputado.<br>3) El torneo debe estar en estado "En progreso".<br>4) El partido no debe tener un resultado previamente registrado.* |
-| **Actor** | *Organizador* |
-| **Flujo principal** | 1. El organizador accede al partido disputado.<br>2. El organizador selecciona "Registrar resultado".<br>3. El organizador ingresa el marcador del partido.<br>4. El organizador registra los goleadores del partido.<br>5. El organizador registra las tarjetas amarillas y rojas recibidas.<br>6. El organizador confirma el registro.<br>7. El sistema guarda el resultado y actualiza las estadísticas del torneo. |
+| **ID** | RF-19 |
+| **Nombre del requerimiento** | Registrarse como capitán |
+| **Descripción** | El sistema debe permitir a un jugador ya registrado asumir el rol de capitán para poder crear y administrar un equipo. |
+| **Precondiciones** | El usuario debe estar registrado como jugador en el sistema. El usuario no debe ser ya capitán de otro equipo activo. |
+| **Actor** | Estudiante, Graduado, Profesor, Personal Administrativo, Familiar |
+| **Flujo principal** | 1. El jugador accede a la opción de crear un equipo.<br>2. El sistema verifica que el jugador no sea capitán de otro equipo activo.<br>3. El sistema asigna el rol de Capitán al jugador.<br>4. El jugador puede comenzar a crear y administrar su equipo. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que el jugador tenga el rol de Capitán asignado y pueda acceder a las funcionalidades de gestión de equipo. |
 
 ---
 
-### 2.16 RF-016 — Validar Equipo
+## RF-20 — Iniciar y finalizar un torneo
 
 | Campo | Descripción |
 |-------|-------------|
-| **ID** | RF-016 |
-| **Nombre** | Validar Equipo |
-| **Descripción** | *El sistema debe validar automáticamente que un equipo cumpla con las condiciones mínimas de participación: mínimo 7 jugadores, máximo 12, que ningún jugador pertenezca a dos equipos en el mismo torneo, y que más de la mitad de los integrantes sean de los programas objetivo.* |
-| **Precondiciones** | *1) El equipo debe estar registrado en un torneo activo.<br>2) El torneo debe estar en estado "Activo".* |
-| **Actor** | *Sistema (automático)* |
-| **Flujo principal** | 1. El sistema detecta un evento que requiere validación del equipo (inscripción, carga de comprobante o inicio de torneo).<br>2. El sistema verifica que el equipo tenga entre 7 y 12 jugadores.<br>3. El sistema verifica que ningún jugador esté inscrito en otro equipo del mismo torneo.<br>4. El sistema verifica que más de la mitad de los integrantes pertenezcan a los programas objetivo.<br>5. Si todas las condiciones se cumplen, el sistema permite continuar con la operación.<br>6. Si alguna condición falla, el sistema bloquea la operación y notifica el motivo al capitán. |
+| **ID** | RF-20 |
+| **Nombre del requerimiento** | Iniciar y finalizar un torneo |
+| **Descripción** | El sistema debe permitir al organizador cambiar el estado del torneo a *En progreso* para iniciarlo y a *Finalizado* para cerrarlo oficialmente. |
+| **Precondiciones** | Para iniciar: el torneo debe estar en estado *Activo* y debe tener equipos inscritos con pago aprobado. Para finalizar: el torneo debe estar en estado *En progreso* y todos los partidos deben estar registrados. |
+| **Actor** | Organizador |
+| **Flujo principal** | 1. El organizador accede a la gestión del torneo.<br>2. El organizador selecciona la opción *Iniciar torneo*.<br>3. El sistema valida que haya equipos suficientes con pago aprobado.<br>4. El sistema cambia el estado a *En progreso* y genera los partidos de fase de grupos.<br>5. Al concluir el torneo, el organizador selecciona *Finalizar torneo*.<br>6. El sistema cambia el estado a *Finalizado* y congela la información. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que el torneo cambie de estado correctamente y se activen o cierren las funcionalidades correspondientes. |
 
 ---
 
-### 2.17 RF-017 — Definir Alineación y Formación Táctica
+## RF-21 — Configurar parámetros del torneo
 
 | Campo | Descripción |
 |-------|-------------|
-| **ID** | RF-017 |
-| **Nombre** | Definir Alineación y Formación Táctica |
-| **Descripción** | *El sistema debe permitir al capitán definir los jugadores titulares, reservas y la formación táctica del equipo antes de cada partido, con ubicación visual de los jugadores en la cancha.* |
-| **Precondiciones** | *1) El usuario debe estar autenticado con rol de Capitán.<br>2) El torneo debe estar en estado "En progreso".<br>3) El equipo debe tener al menos 7 jugadores aprobados.* |
-| **Actor** | *Capitán* |
-| **Flujo principal** | 1. El capitán accede a la gestión de su equipo.<br>2. El capitán selecciona el partido para el cual desea definir la alineación.<br>3. El sistema muestra la interfaz visual de la cancha con los jugadores disponibles.<br>4. El capitán asigna los jugadores titulares y los ubica en su posición dentro de la cancha.<br>5. El capitán asigna los jugadores reservas.<br>6. El capitán selecciona la formación táctica del equipo.<br>7. El capitán confirma la alineación.<br>8. El sistema guarda la configuración para el partido. |
+| **ID** | RF-21 |
+| **Nombre del requerimiento** | Configurar parámetros del torneo |
+| **Descripción** | El sistema debe permitir al organizador definir el reglamento, fechas importantes, cierre de inscripciones, horarios de partidos, canchas disponibles y sanciones aplicables. |
+| **Precondiciones** | El organizador debe estar autenticado. El torneo debe existir y estar en estado *Borrador* o *Activo*. |
+| **Actor** | Organizador |
+| **Flujo principal** | 1. El organizador accede a la configuración del torneo.<br>2. El organizador ingresa o actualiza el reglamento del torneo.<br>3. El organizador define las fechas importantes y el cierre de inscripciones.<br>4. El organizador registra las canchas disponibles y los horarios de partidos.<br>5. El organizador define las sanciones aplicables (tarjetas, suspensiones, etc.).<br>6. El sistema guarda la configuración y la publica para los demás actores. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que la configuración del torneo quede guardada y sea visible para todos los actores del sistema. |
 
 ---
 
-### 2.18 RF-018 — Registrar Resultado de Partido
+## RF-22 — Cambiar estado de un pago
 
 | Campo | Descripción |
 |-------|-------------|
-| **ID** | RF-018 |
-| **Nombre** | Registrar Resultado de Partido |
-| **Descripción** | *El sistema debe permitir al organizador registrar los resultados de un partido incluyendo marcador, goleadores, tarjetas amarillas y tarjetas rojas.* |
-| **Precondiciones** | *1) El usuario debe estar autenticado con rol de Organizador.<br>2) Debe existir un partido programado que ya se haya disputado.<br>3) El torneo debe estar en estado "En progreso".<br>4) El partido no debe tener un resultado previamente registrado.* |
-| **Actor** | *Organizador* |
-| **Flujo principal** | 1. El organizador accede al partido disputado.<br>2. El organizador selecciona "Registrar resultado".<br>3. El organizador ingresa el marcador del partido.<br>4. El organizador registra los goleadores del partido.<br>5. El organizador registra las tarjetas amarillas y rojas recibidas.<br>6. El organizador confirma el registro.<br>7. El sistema guarda el resultado y actualiza las estadísticas del torneo. |
+| **ID** | RF-22 |
+| **Nombre del requerimiento** | Cambiar estado de un pago |
+| **Descripción** | El sistema debe permitir al organizador revisar el comprobante de pago de un equipo y actualizar su estado a *En revisión*, *Aprobado* o *Rechazado*. |
+| **Precondiciones** | El organizador debe estar autenticado. El capitán debe haber subido un comprobante de pago. El estado actual del pago debe ser *Pendiente* o *En revisión*. |
+| **Actor** | Organizador |
+| **Flujo principal** | 1. El organizador recibe la notificación de un nuevo comprobante.<br>2. El organizador accede a la sección de pagos pendientes.<br>3. El organizador visualiza el comprobante subido por el capitán.<br>4. El organizador cambia el estado a *En revisión* mientras lo analiza.<br>5. El organizador aprueba o rechaza el pago.<br>6. El sistema actualiza el estado, registra la acción con marca de tiempo y notifica al capitán. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que el estado del pago quede actualizado y el capitán sea notificado del resultado. |
 
 ---
 
-### 2.19 RF-019 — Consultar Partidos Asignados
+## RF-23 — Registrar resultado de un partido
 
 | Campo | Descripción |
 |-------|-------------|
-| **ID** | RF-019 |
-| **Nombre** | Consultar Partidos Asignados |
-| **Descripción** | *El sistema debe permitir al árbitro consultar la información de los partidos que tiene asignados, incluyendo fecha, hora, cancha y equipos participantes.* |
-| **Precondiciones** | *1) El usuario debe estar autenticado con rol de Árbitro.<br>2) Debe tener al menos un partido asignado.* |
-| **Actor** | *Árbitro* |
-| **Flujo principal** | 1. El árbitro accede al módulo de sus partidos asignados.<br>2. El sistema muestra la lista de partidos asignados al árbitro.<br>3. El árbitro selecciona un partido para ver su detalle.<br>4. El sistema muestra la fecha, hora, cancha y equipos participantes del partido. |
+| **ID** | RF-23 |
+| **Nombre del requerimiento** | Registrar resultado de un partido |
+| **Descripción** | El sistema debe permitir al organizador registrar el marcador final, los goleadores, las tarjetas amarillas y las tarjetas rojas de cada partido disputado. |
+| **Precondiciones** | El organizador debe estar autenticado. El partido debe existir en el calendario del torneo. El torneo debe estar en estado *En progreso*. |
+| **Actor** | Organizador |
+| **Flujo principal** | 1. El organizador accede a la sección de gestión de partidos.<br>2. El organizador selecciona el partido a registrar.<br>3. El organizador ingresa el marcador final (goles por equipo).<br>4. El organizador registra los goleadores indicando jugador y minuto.<br>5. El organizador registra las tarjetas amarillas y rojas con el jugador correspondiente.<br>6. El sistema guarda el resultado y actualiza automáticamente la tabla de posiciones y estadísticas. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que el resultado quede registrado y la tabla de posiciones y estadísticas sean actualizadas automáticamente. |
 
 ---
 
-### 2.20 RF-020 — Tabla de Posiciones
+## RF-24 — Generar llaves eliminatorias
 
 | Campo | Descripción |
 |-------|-------------|
-| **ID** | RF-020 |
-| **Nombre** | Tabla de Posiciones |
-| **Descripción** | *El sistema debe calcular automáticamente la tabla de posiciones del torneo, incluyendo partidos jugados, ganados, empatados y perdidos, goles a favor, goles en contra, diferencia de gol y puntos de cada equipo.* |
-| **Precondiciones** | *1) El torneo debe estar en estado "En progreso".<br>2) Debe existir al menos un resultado de partido registrado.* |
-| **Actor** | *Sistema (automático)* |
-| **Flujo principal** | 1. El sistema detecta el registro de un nuevo resultado de partido.<br>2. El sistema actualiza los partidos jugados, ganados, empatados y perdidos de cada equipo.<br>3. El sistema recalcula los goles a favor, goles en contra y diferencia de gol.<br>4. El sistema actualiza los puntos de cada equipo según el resultado.<br>5. El sistema reordena la tabla de posiciones según los criterios de clasificación.<br>6. La tabla actualizada queda disponible para consulta de todos los usuarios. |
+| **ID** | RF-24 |
+| **Nombre del requerimiento** | Generar llaves eliminatorias |
+| **Descripción** | El sistema debe generar automáticamente las llaves eliminatorias (cuartos de final, semifinal y final) con base en los resultados de la fase de grupos, una vez que esta haya concluido. |
+| **Precondiciones** | El torneo debe estar en estado *En progreso*. Todos los partidos de la fase de grupos deben tener resultado registrado. |
+| **Actor** | Organizador, Sistema |
+| **Flujo principal** | 1. El organizador indica que la fase de grupos ha concluido.<br>2. El sistema toma la tabla de posiciones final de la fase de grupos.<br>3. El sistema clasifica los equipos según su posición.<br>4. El sistema genera automáticamente los enfrentamientos de cuartos de final.<br>5. A medida que se registran resultados, el sistema avanza las llaves a semifinal y final.<br>6. El sistema publica las llaves visibles para todos los actores. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que las llaves eliminatorias queden generadas y sean visibles para todos los actores del sistema. |
 
 ---
 
-### 2.21 RF-021 — Generar Llaves Eliminatorias
+## RF-25 — Mostrar tabla de posiciones
 
 | Campo | Descripción |
 |-------|-------------|
-| **ID** | RF-021 |
-| **Nombre** | Generar Llaves Eliminatorias |
-| **Descripción** | *El sistema debe generar automáticamente las llaves eliminatorias (cuartos de final, semifinal y final) una vez concluida la fase de grupos del torneo.* |
-| **Precondiciones** | *1) El torneo debe estar en estado "En progreso".<br>2) La fase de grupos debe haber concluido con todos los resultados registrados.<br>3) Deben existir suficientes equipos clasificados para conformar las llaves.* |
-| **Actor** | *Sistema (automático)* |
-| **Flujo principal** | 1. El sistema detecta la finalización de la fase de grupos.<br>2. El sistema determina los equipos clasificados según la tabla de posiciones.<br>3. El sistema genera los enfrentamientos de cuartos de final según el orden de clasificación.<br>4. El sistema programa los partidos de semifinal en espera de los resultados de cuartos.<br>5. El sistema programa el partido de final en espera de los resultados de semifinal.<br>6. El sistema publica las llaves generadas y las deja disponibles para consulta de todos los usuarios. |
+| **ID** | RF-25 |
+| **Nombre del requerimiento** | Mostrar tabla de posiciones |
+| **Descripción** | El sistema debe mostrar la tabla de posiciones actualizada automáticamente con los siguientes datos por equipo: partidos jugados, ganados, empatados, perdidos, goles a favor, goles en contra, diferencia de gol y puntos totales. |
+| **Precondiciones** | El torneo debe estar en estado *En progreso*. Debe haber al menos un partido con resultado registrado. |
+| **Actor** | Estudiante, Capitán, Árbitro, Organizador, Administrador |
+| **Flujo principal** | 1. El usuario accede a la sección de tabla de posiciones del torneo.<br>2. El sistema consulta todos los resultados registrados.<br>3. El sistema calcula para cada equipo: PJ, PG, PE, PP, GF, GC, DG y puntos.<br>4. El sistema muestra la tabla ordenada por puntos de mayor a menor.<br>5. En caso de empate en puntos, el sistema aplica los criterios de desempate definidos en el reglamento. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que el usuario visualice la tabla de posiciones actualizada con todos los datos estadísticos por equipo. |
 
 ---
 
-### 2.22 RF-022 — Consultar Estadísticas
+## RF-26 — Crear equipo
 
 | Campo | Descripción |
 |-------|-------------|
-| **ID** | RF-022 |
-| **Nombre** | Consultar Estadísticas |
-| **Descripción** | *El sistema debe permitir consultar las estadísticas del torneo, incluyendo máximos goleadores, historial de partidos y resultados por equipo.* |
-| **Precondiciones** | *1) El usuario debe estar autenticado.<br>2) El torneo debe tener al menos un resultado de partido registrado.* |
-| **Actor** | *Todos los actores* |
-| **Flujo principal** | 1. El usuario accede al módulo de estadísticas del torneo.<br>2. El sistema muestra las opciones de consulta disponibles.<br>3. El usuario selecciona el tipo de estadística que desea consultar (máximos goleadores, historial de partidos o resultados por equipo).<br>4. El sistema recupera y muestra la información solicitada actualizada. |
+| **ID** | RF-26 |
+| **Nombre del requerimiento** | Crear equipo |
+| **Descripción** | El sistema debe permitir al capitán crear un equipo asignándole nombre, escudo y colores de uniforme. |
+| **Precondiciones** | El usuario debe estar registrado como jugador y tener rol de Capitán. El capitán no debe ser ya responsable de otro equipo activo. |
+| **Actor** | Capitán |
+| **Flujo principal** | 1. El capitán accede a la sección de creación de equipo.<br>2. El capitán ingresa el nombre del equipo.<br>3. El capitán sube la imagen del escudo del equipo.<br>4. El capitán define los colores del uniforme.<br>5. El sistema valida que el nombre no esté en uso.<br>6. El sistema crea el equipo y lo asocia al capitán. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que el equipo quede creado en el sistema con su información básica y asociado al capitán. |
 
 ---
 
-### 2.23 RF-023 — Control de Roles
+## RF-27 — Invitar jugadores al equipo
 
 | Campo | Descripción |
 |-------|-------------|
-| **ID** | RF-023 |
-| **Nombre** | Control de Roles |
-| **Descripción** | *El sistema debe implementar control de acceso basado en roles, garantizando que cada usuario solo pueda acceder y ejecutar las funcionalidades correspondientes a su rol asignado: Administrador, Organizador, Capitán, Jugador y Árbitro.* |
-| **Precondiciones** | *1) El usuario debe estar autenticado en el sistema.<br>2) El usuario debe tener al menos un rol asignado.* |
-| **Actor** | *Sistema (automático)* |
-| **Flujo principal** | 1. El usuario se autentica en el sistema.<br>2. El sistema identifica el rol asignado al usuario.<br>3. El sistema habilita únicamente las funcionalidades y módulos correspondientes a dicho rol.<br>4. El usuario accede solo a las opciones permitidas según su rol.<br>5. El sistema bloquea y deniega cualquier intento de acceso a funcionalidades fuera del rol asignado. |
+| **ID** | RF-27 |
+| **Nombre del requerimiento** | Invitar jugadores al equipo |
+| **Descripción** | El sistema debe permitir al capitán enviar invitaciones a jugadores disponibles para que se unan a su equipo, respetando el límite máximo de 12 jugadores. |
+| **Precondiciones** | El capitán debe estar autenticado con rol de Capitán. El equipo debe estar creado. El jugador a invitar debe estar registrado y marcado como disponible. El equipo no debe haber alcanzado el máximo de 12 jugadores. |
+| **Actor** | Capitán |
+| **Flujo principal** | 1. El capitán busca un jugador en la sección de búsqueda.<br>2. El capitán selecciona al jugador y elige la opción de invitar.<br>3. El sistema verifica que el jugador no pertenezca ya a otro equipo.<br>4. El sistema verifica que el equipo no haya alcanzado el máximo de 12 jugadores.<br>5. El sistema envía la invitación al jugador.<br>6. El jugador recibe la invitación y puede aceptarla o rechazarla. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que la invitación quede registrada y el jugador sea notificado para que tome una decisión. |
 
 ---
 
-### 2.24 RF-024 — Auditoría
+## RF-28 — Aceptar o rechazar invitación a un equipo
 
 | Campo | Descripción |
 |-------|-------------|
-| **ID** | RF-024 |
-| **Nombre** | Auditoría |
-| **Descripción** | *El sistema debe registrar automáticamente un log de las acciones relevantes realizadas por cada usuario, permitiendo trazabilidad y control sobre las operaciones ejecutadas en la plataforma.* |
-| **Precondiciones** | *1) El usuario debe estar autenticado en el sistema.<br>2) El módulo de auditoría debe estar activo.* |
-| **Actor** | *Sistema (automático)* |
-| **Flujo principal** | 1. El usuario ejecuta una acción relevante dentro del sistema.<br>2. El sistema intercepta la acción realizada.<br>3. El sistema registra en el log: el usuario, el rol, la acción ejecutada, la fecha, la hora y el resultado de la operación.<br>4. El registro queda almacenado y disponible para consulta por parte del Administrador. |
+| **ID** | RF-28 |
+| **Nombre del requerimiento** | Aceptar o rechazar invitación a un equipo |
+| **Descripción** | El sistema debe permitir al jugador aceptar o rechazar las invitaciones recibidas de capitanes para unirse a un equipo. |
+| **Precondiciones** | El jugador debe estar autenticado. El jugador debe haber recibido al menos una invitación pendiente. El jugador no debe pertenecer ya a otro equipo. |
+| **Actor** | Estudiante, Graduado, Profesor, Personal Administrativo, Familiar |
+| **Flujo principal** | 1. El jugador accede a la sección de invitaciones recibidas.<br>2. El sistema muestra las invitaciones pendientes con información del equipo y el capitán.<br>3. El jugador selecciona una invitación y elige aceptar o rechazar.<br>4. Si acepta: el sistema agrega al jugador al equipo y actualiza el roster.<br>5. Si rechaza: el sistema descarta la invitación y notifica al capitán.<br>6. El sistema valida que el jugador no pertenezca a dos equipos simultáneamente. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que el jugador quede vinculado al equipo si aceptó, o que la invitación quede descartada si rechazó. |
+
+---
+
+## RF-29 — Crear perfil deportivo
+
+| Campo | Descripción |
+|-------|-------------|
+| **ID** | RF-29 |
+| **Nombre del requerimiento** | Crear perfil deportivo |
+| **Descripción** | El sistema debe permitir al jugador registrado completar su perfil deportivo indicando su posición de juego preferida, número dorsal y foto. |
+| **Precondiciones** | El usuario debe estar registrado en el sistema. El perfil deportivo no debe haber sido creado previamente. |
+| **Actor** | Estudiante, Graduado, Profesor, Personal Administrativo, Familiar |
+| **Flujo principal** | 1. El usuario accede a la sección de perfil deportivo.<br>2. El usuario selecciona su posición de juego: portero, defensa, volante o delantero.<br>3. El usuario elige su número dorsal.<br>4. El usuario sube su foto de perfil.<br>5. El sistema guarda el perfil deportivo y lo asocia al usuario. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que el perfil deportivo del jugador quede completo y sea visible para los capitanes en la búsqueda de jugadores. |
+
+---
+
+## RF-30 — Marcarse como disponible para un equipo
+
+| Campo | Descripción |
+|-------|-------------|
+| **ID** | RF-30 |
+| **Nombre del requerimiento** | Marcarse como disponible para un equipo |
+| **Descripción** | El sistema debe permitir al jugador indicar si está disponible para ser contactado por capitanes que busquen jugadores para sus equipos. |
+| **Precondiciones** | El jugador debe estar registrado y tener su perfil deportivo creado. El jugador no debe pertenecer ya a un equipo activo. |
+| **Actor** | Estudiante, Graduado, Profesor, Personal Administrativo, Familiar |
+| **Flujo principal** | 1. El jugador accede a su perfil deportivo.<br>2. El jugador activa la opción de *disponible para equipo*.<br>3. El sistema actualiza el estado de disponibilidad del jugador.<br>4. El perfil del jugador ahora aparece en los resultados de búsqueda de capitanes. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que el jugador aparezca en el listado de jugadores disponibles y pueda recibir invitaciones de capitanes. |
+
+---
+
+## RF-31 — Consultar estadísticas del torneo
+
+| Campo | Descripción |
+|-------|-------------|
+| **ID** | RF-31 |
+| **Nombre del requerimiento** | Consultar estadísticas del torneo |
+| **Descripción** | El sistema debe permitir a cualquier usuario autenticado consultar las estadísticas del torneo, incluyendo el ranking de máximos goleadores, historial de partidos y resultados por equipo. |
+| **Precondiciones** | El usuario debe estar autenticado. El torneo debe estar en estado *En progreso* o *Finalizado*. Deben existir partidos con resultados registrados. |
+| **Actor** | Estudiante, Capitán, Árbitro, Organizador, Administrador |
+| **Flujo principal** | 1. El usuario accede a la sección de estadísticas del torneo.<br>2. El sistema muestra el ranking de máximos goleadores con nombre, equipo y cantidad de goles.<br>3. El usuario puede consultar el historial de partidos con fechas y resultados.<br>4. El usuario puede filtrar los resultados por equipo para ver su desempeño histórico. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que el usuario visualice las estadísticas actualizadas del torneo según los resultados registrados. |
+
+---
+
+## RF-32 — Administración total del sistema
+
+| Campo | Descripción |
+|-------|-------------|
+| **ID** | RF-32 |
+| **Nombre del requerimiento** | Administración total del sistema |
+| **Descripción** | El sistema debe otorgar al administrador acceso completo a todas las funcionalidades, incluyendo la gestión de usuarios, torneos, equipos, pagos y configuraciones globales. |
+| **Precondiciones** | El usuario debe estar autenticado con rol de Administrador. |
+| **Actor** | Administrador |
+| **Flujo principal** | 1. El administrador accede al panel de administración del sistema.<br>2. El administrador puede consultar, crear, editar o eliminar cualquier entidad del sistema: usuarios, torneos, equipos, pagos, partidos.<br>3. El administrador puede asignar o revocar roles a cualquier usuario.<br>4. El administrador puede consultar los registros de auditoría del sistema.<br>5. El sistema registra todas las acciones del administrador en el log de auditoría. |
+| **Diagrama de caso de uso** | *Por definir* |
+| **Poscondiciones** | Se espera como resultado que el administrador pueda gestionar cualquier aspecto del sistema sin restricciones, y que todas sus acciones queden registradas. |
 
 ---
 
 ## 3. Requerimientos No Funcionales
 
-| Código | Nombre |    Categoría    | Descripción |
-|--------|--------|:---------------:|-------------|
-| **RNF-001** | Autenticación con correo institucional |    Seguridad    | El sistema debe autenticar a estudiantes, graduados, profesores y personal administrativo mediante correo institucional (@escuelaing.edu.co). |
-| **RNF-002** | Autenticación con correo Gmail |    Seguridad    | El sistema debe permitir la autenticación de familiares mediante correo personal de Gmail. |
-| **RNF-003** | Backend Spring Boot por capas | ️ Arquitectura  | El backend debe desarrollarse con Spring Boot separado por capas: controladores, adaptadores, lógica y datos. |
-| **RNF-004** | API REST |  Arquitectura   | El sistema debe exponer sus funcionalidades mediante una API REST desarrollada con Spring Boot. |
-| **RNF-005** | Frontend React con TypeScript | ️ Arquitectura  | El frontend debe desarrollarse como una aplicación web utilizando React con TypeScript. |
-| **RNF-006** | Base de datos PostgreSQL | ️ Arquitectura  | El sistema debe utilizar PostgreSQL como motor de base de datos. |
-| **RNF-007** | Diseño responsive |   Usabilidad  | La interfaz web debe ser responsive y adaptarse a dispositivos móviles para facilitar el acceso desde cualquier dispositivo. |
+| Código | Nombre | Categoría | Descripción |
+|--------|--------|-----------|-------------|
+| RNF-001 | Restricción de acceso por dominio | Seguridad | El sistema debe garantizar que solo usuarios con correo verificado (@escuelaing.edu.co o @gmail.com) puedan acceder. Ninguna sesión puede iniciarse sin verificación del dominio del correo. |
+| RNF-002 | Tokens de sesión seguros | Seguridad | El sistema debe gestionar sesiones mediante tokens firmados (JWT), con expiración configurable. Las sesiones deben invalidarse al cerrar sesión o al detectar inactividad prolongada. |
+| RNF-003 | Control de roles y permisos (RBAC) | Seguridad | El sistema debe implementar control de acceso basado en roles (RBAC) para restringir las funcionalidades según el tipo de usuario: Estudiante, Capitán, Organizador, Árbitro y Administrador. |
+| RNF-004 | Registro de acciones (Auditoría) | Seguridad | El sistema debe registrar las acciones relevantes realizadas por los usuarios (quién, qué, cuándo) para fines de auditoría y trazabilidad. Los registros no pueden ser modificados ni eliminados por usuarios regulares. |
+| RNF-005 | Backend Spring Boot por capas | Arquitectura | El backend debe desarrollarse con Spring Boot separado por capas: controladores, adaptadores, lógica y datos. |
+| RNF-006 | API REST | Arquitectura | El sistema debe exponer sus funcionalidades mediante una API REST desarrollada con Spring Boot, siguiendo convenciones estándar de verbos HTTP y códigos de respuesta. |
+| RNF-007 | Frontend React con TypeScript | Arquitectura | El frontend debe desarrollarse como una aplicación web utilizando React con TypeScript. |
+| RNF-008 | Base de datos PostgreSQL | Arquitectura | El sistema debe utilizar PostgreSQL como motor de base de datos relacional. |
+| RNF-009 | Diseño responsive | Usabilidad | La interfaz web debe ser responsive y adaptarse a dispositivos móviles para facilitar el acceso desde cualquier dispositivo. |
+| RNF-010 | Actualización automática de estadísticas | Rendimiento | La tabla de posiciones y las estadísticas deben recalcularse automáticamente al registrar un resultado, sin intervención manual del organizador. |
+| RNF-011 | Despliegue en contenedores Docker | Portabilidad | El sistema debe estar completamente dockerizado, con contenedores independientes para el backend, frontend y base de datos, orquestados mediante Docker Compose para facilitar su despliegue en cualquier entorno. |
+| RNF-012 | Tiempo de respuesta de la API | Rendimiento | Los endpoints de consulta frecuente (tabla de posiciones, lista de partidos, búsqueda de jugadores) deben responder en menos de 2 segundos bajo condiciones normales de uso. |
+| RNF-013 | Validación de integridad de datos | Arquitectura | El sistema debe aplicar validaciones en capa de negocio y en base de datos para garantizar la integridad referencial: un jugador no puede pertenecer a dos equipos simultáneamente, el número de jugadores por equipo debe estar entre 7 y 12, y más de la mitad deben pertenecer a los programas definidos. |
+| RNF-014 | Gestión segura de comprobantes | Seguridad | Los archivos de comprobante de pago subidos por los capitanes deben almacenarse de forma segura, accesibles únicamente por el organizador y el Administrador. No deben ser públicamente accesibles mediante URL directa. |
+| RNF-015 | Mantenibilidad del código | Mantenibilidad | El código debe seguir los patrones de diseño definidos por el equipo, estar documentado en sus componentes principales y estructurado con Maven, facilitando la incorporación de nuevos integrantes al proyecto. |
+| RNF-016 | Disponibilidad durante periodo activo | Disponibilidad | El sistema debe estar disponible durante todo el periodo activo del torneo (estado "En progreso"). Las caídas no planificadas deben ser recuperables sin pérdida de datos. |
+| RNF-017 | Generación automática de llaves | Rendimiento | La generación de llaves eliminatorias (cuartos, semifinal, final) debe ejecutarse de forma automática e inmediata al activar la fase eliminatoria, sin tiempos de espera perceptibles por el organizador. |
+| RNF-018 | Trazabilidad del estado de inscripción | Seguridad | Cada cambio de estado de un pago (Pendiente → En revisión → Aprobado / Rechazado) debe quedar registrado con marca de tiempo y el usuario que realizó la acción, garantizando trazabilidad completa del proceso. |
