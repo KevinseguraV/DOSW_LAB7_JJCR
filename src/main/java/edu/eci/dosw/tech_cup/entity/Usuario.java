@@ -2,30 +2,17 @@ package edu.eci.dosw.tech_cup.entity;
 
 import jakarta.persistence.*;
 
-@Entity
-@Table(name = "usuarios")
+
 public class Usuario {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long idUsuario;
-
-    @Column(nullable = false)
     private String nombre;
-
-    @Column(nullable = false, unique = true)
     private String correo;
-
-    @Column(nullable = false)
     private String contrasena;
-
-    @Column(nullable = false)
     private String rol;
-
-    @Column(nullable = false)
     private boolean activo;
 
-    public Usuario() {}
 
     public Usuario(Long idUsuario, String nombre, String correo, String contrasena, String rol, boolean activo) {
         this.idUsuario = idUsuario;
@@ -34,6 +21,10 @@ public class Usuario {
         this.contrasena = contrasena;
         this.rol = rol;
         this.activo = activo;
+    }
+
+    public Usuario() {
+
     }
 
     public Long getIdUsuario() {
