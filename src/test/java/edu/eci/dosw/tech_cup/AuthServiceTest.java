@@ -11,7 +11,7 @@ class AuthServiceTest {
 
     @Test
     void testCredencialesCorrectas() {
-        assertTrue(authService.autenticar("admin@techcup.com", "admin123"));
+        assertTrue(authService.autenticar("admin@escuelaing.edu.co", "admin123"));
     }
 
     @Test
